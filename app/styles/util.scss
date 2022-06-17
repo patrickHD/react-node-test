@@ -1,0 +1,22 @@
+@mixin rem-size($attr, $sizes) {
+    #{$attr}: calcRem($sizes);
+}
+
+@function calcRem($values) {
+    $max: length($values);
+
+    @if $max == 1 {
+        @return convertRem(nth($values, 1));
+    }
+
+    $remValues: ();
+    @for $i from 1 through $max {
+        $remValues: append($remValues, convertRem(nth($values, $i)));
+    }
+    @return $remValues;
+}
+
+@function convertRem($size) {
+    $remSize: calc($size / 16px);
+    @return $remSize * 1rem;
+}
